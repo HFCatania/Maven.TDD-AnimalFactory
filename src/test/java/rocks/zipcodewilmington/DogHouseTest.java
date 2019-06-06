@@ -1,5 +1,6 @@
 package rocks.zipcodewilmington;
 
+import org.junit.Assert;
 import org.junit.Test;
 import rocks.zipcodewilmington.animals.Dog;
 import rocks.zipcodewilmington.animals.animal_creation.AnimalFactory;
@@ -19,16 +20,74 @@ public class DogHouseTest {
 
     @Test
     public void testGetNumberOfDogs() {
-        // Given (some
-        String name = "Milo";
+
+        String name = "eddie";
         Date birthDate = new Date();
         Dog animal = AnimalFactory.createDog(name, birthDate);
         DogHouse.clear();
-
-        // When
         DogHouse.add(animal);
-
-        // Then
         DogHouse.getNumberOfDogs();
     }
+
+
+    @Test
+    public void addDogTest() {
+        Dog expected = new Dog(null, null, 5);
+        DogHouse house = new DogHouse();
+        house.clear();
+        house.add(expected);
+        Dog actual = DogHouse.getDogById(5);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void removeCatTest(){
+        Dog expected = null;
+        Dog dog = new Dog(null, null, 5);
+        DogHouse house = new DogHouse();
+        house.clear();
+        house.add(dog);
+        house.remove(dog);
+        Dog actual = house.getDogById(5);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void removeCatByIDTest(){
+        Dog expected = null;
+        Dog dog = new Dog(null, null, 5);
+        DogHouse house = new DogHouse();
+        house.clear();
+        house.add(dog);
+        house.remove(5);
+        Dog actual = house.getDogById(5);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getCatByIDTest(){
+        Dog expected = new Dog(null, null, 5);
+        DogHouse house = new DogHouse();
+        house.clear();
+        house.add(expected);
+        Dog actual = house.getDogById(5);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getNumberOfCatsTest(){
+        Integer expected = 4;
+        DogHouse house = new DogHouse();
+        house.clear();
+        house.add(new Dog(null, null, 4));
+        house.add(new Dog(null, null, 5));
+        house.add(new Dog(null, null, 6));
+        house.add(new Dog(null, null, 7));
+        Integer actual = house.getNumberOfDogs();
+
+        Assert.assertEquals(expected, actual);
+    }
+
 }
